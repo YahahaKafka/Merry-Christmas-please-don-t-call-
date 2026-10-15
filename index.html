@@ -2,510 +2,714 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#080c16">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Merry Christmas, Please Don't Call</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --gold: #e7d3ae;
-  --blue: #c8d9ed;
-  --white: #f4f3f1;
+  --white: #f5f4f2;
+  --gold: #e8d6a8;
+  --muted: rgba(245,244,242,.65);
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html, body {
-  margin: 0;
   width: 100%;
-  min-height: 100%;
-  background: #05070c;
+  height: 100%;
+  overflow: hidden;
+  background: #080d16;
   color: var(--white);
-  font-family: Georgia, "Times New Roman", serif;
 }
 
 body {
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
 }
 
-button {
-  font: inherit;
-}
-
-.player {
+.scene {
   position: relative;
-  isolation: isolate;
-  width: min(100vw, 480px);
+  width: 100%;
+  height: 100%;
   height: 100dvh;
-  height: 100svh;
-  max-height: 960px;
-  aspect-ratio: 9 / 16;
   overflow: hidden;
-  background: #101522;
-  touch-action: manipulation;
+  isolation: isolate;
+  background: #101725;
 }
 
-.bg {
+.background {
   position: absolute;
-  z-index: -6;
-  inset: -5%;
-  background: url("violet.jpg") center / cover no-repeat;
-  transform: scale(1.06);
-  animation: cinematicZoom 24s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-.tint {
-  position: absolute;
+  inset: -4%;
   z-index: -5;
-  inset: 0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(5, 9, 19, .35) 0%,
-      rgba(8, 12, 22, .08) 35%,
-      rgba(5, 8, 16, .42) 60%,
-      rgba(4, 6, 13, .91) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(8, 15, 29, .25),
-      transparent 65%
-    );
+  background-image: url("violet.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+  animation: slowZoom 65s ease-in-out infinite alternate;
 }
 
-.vignette {
-  position: absolute;
-  z-index: -4;
-  inset: 0;
-  box-shadow:
-    inset 0 0 80px rgba(0, 0, 0, .35),
-    inset 0 -100px 120px rgba(0, 0, 0, .25);
-  pointer-events: none;
+@keyframes slowZoom {
+  from { transform: scale(1.02); }
+  to { transform: scale(1.15); }
 }
 
 .color-grade {
   position: absolute;
-  z-index: -3;
   inset: 0;
-  background: rgba(90, 122, 165, .06);
-  mix-blend-mode: screen;
-  pointer-events: none;
+  z-index: -4;
+  background:
+    linear-gradient(180deg,
+      rgba(8,13,24,.42) 0%,
+      rgba(10,17,29,.12) 35%,
+      rgba(8,13,24,.25) 60%,
+      rgba(5,9,17,.83) 100%),
+    linear-gradient(90deg,
+      rgba(12,22,42,.25),
+      rgba(12,22,42,.02) 50%,
+      rgba(12,22,42,.3));
 }
 
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 28%,
+    rgba(0,0,0,.18) 60%,
+    rgba(0,0,0,.7) 100%
+  );
+}
+
+/* Blur di tepi area lirik */
+.lyric-blur {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(7,12,22,.62) 0%,
+    transparent 23%,
+    transparent 70%,
+    rgba(5,9,17,.76) 100%
+  );
+}
+
+/* Salju */
 #snow {
   position: absolute;
-  z-index: -2;
   inset: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
   pointer-events: none;
 }
 
-.grain {
+/* Area lirik */
+.lyric-stage {
   position: absolute;
-  z-index: 5;
-  inset: -50%;
-  opacity: .055;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-  animation: grainDrift .5s steps(2) infinite;
-}
-
-.header {
-  position: absolute;
-  top: max(27px, env(safe-area-inset-top));
-  left: 24px;
-  right: 24px;
-  z-index: 6;
+  inset: 0;
+  z-index: 2;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  text-shadow: 0 2px 12px #000;
-}
-
-.kicker {
-  color: var(--gold);
-  font-family: Arial, sans-serif;
-  font-size: 9px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  opacity: .9;
-}
-
-.song-title {
-  margin-top: 9px;
-  color: rgba(255, 255, 255, .9);
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: .5px;
-}
-
-.chapter {
-  color: rgba(255, 255, 255, .62);
-  font-family: Arial, sans-serif;
-  font-size: 9px;
-  letter-spacing: 2px;
-}
-
-/* Lyric positioning */
-.lyric-zone {
-  position: absolute;
-  z-index: 4;
-  top: 49%;
-  left: 0;
-  width: 100%;
+  align-items: center;
+  justify-content: center;
   padding: 25px;
-  text-align: center;
-  transform: translateY(-50%);
+  overflow: hidden;
   pointer-events: none;
 }
 
-.symbol {
-  margin-bottom: 27px;
-  color: var(--gold);
-  font-size: 13px;
-  letter-spacing: 10px;
-  opacity: .8;
-  animation: symbolGlow 5s ease-in-out infinite alternate;
-}
-
-/* Lirik: atas -> tengah -> bawah */
 .lyric {
-  display: block;
-  width: 100%;
-  color: var(--white);
-  font-size: clamp(28px, 7.5vw, 39px);
-  font-weight: normal;
-  line-height: 1.3;
-  letter-spacing: -.7px;
-  text-wrap: balance;
-
+  position: absolute;
+  width: min(90%, 650px);
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(29px, 7vw, 48px);
+  font-weight: 500;
+  line-height: 1.24;
+  letter-spacing: .3px;
+  color: #f7f4ee;
   opacity: 0;
   filter: blur(12px);
-  transform: translateY(-75px) scale(.94);
-
-  text-shadow:
-    0 0 5px rgba(255, 255, 255, .45),
-    0 0 16px rgba(177, 211, 255, .45),
-    0 0 35px rgba(143, 184, 255, .22);
-
+  transform: translateY(-75px) scale(.96);
+  text-shadow: 0 0 22px rgba(220,230,255,.18);
   will-change: transform, opacity, filter;
 }
 
-.lyric.visible {
-  animation: lyricJourney 3.9s cubic-bezier(.22, .61, .36, 1) both;
-}
-
 .lyric.gold {
-  color: #f0dfbd;
-  text-shadow:
-    0 0 5px rgba(255, 225, 170, .65),
-    0 0 16px rgba(255, 207, 126, .48),
-    0 0 36px rgba(255, 190, 100, .25);
+  color: #f4e4bf;
 }
 
-.lyric.blue {
-  color: #d3e5ff;
-  text-shadow:
-    0 0 5px rgba(191, 221, 255, .65),
-    0 0 18px rgba(129, 183, 255, .5),
-    0 0 38px rgba(108, 157, 255, .28);
-}
-
-.lyric.pink {
-  color: #f1dbe4;
-  text-shadow:
-    0 0 5px rgba(255, 220, 231, .65),
-    0 0 17px rgba(255, 171, 201, .42),
-    0 0 34px rgba(255, 151, 190, .22);
-}
-
-.subline {
-  width: 28px;
-  height: 1px;
-  margin: 25px auto 15px;
-  background: var(--gold);
-  opacity: .75;
-  transition: width 1.2s ease;
-}
-
-.caption {
-  color: rgba(255, 255, 255, .67);
-  font-family: Arial, sans-serif;
-  font-size: 8px;
-  letter-spacing: 3px;
-  line-height: 1.8;
-  opacity: 0;
-  transition: opacity 1.2s ease;
-}
-
-.caption.visible {
-  opacity: 1;
-}
-
-/* Opening and ending */
-.scene-fade {
-  position: absolute;
-  z-index: 7;
-  inset: 0;
-  background: #05070c;
-  opacity: 1;
-  pointer-events: none;
-  animation: openingFade 3.2s ease forwards;
-}
-
-.player.ending .bg {
-  animation: endingZoom 7s ease forwards;
-}
-
-.player.ending .tint {
-  background:
-    linear-gradient(
-      180deg,
-      rgba(5, 8, 17, .45),
-      rgba(5, 7, 14, .94)
-    );
-}
-
-.player.ended .scene-fade {
-  animation: endingFade 3s ease forwards;
-}
-
-/* Player controls */
-.footer {
-  position: absolute;
-  z-index: 9;
-  bottom: max(25px, env(safe-area-inset-bottom));
-  left: 24px;
-  right: 24px;
-}
-
-.progress {
-  width: 100%;
-  height: 2px;
-  margin-bottom: 17px;
-  background: rgba(255, 255, 255, .3);
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.progress-fill {
-  width: 0%;
-  height: 100%;
-  background: var(--gold);
-  box-shadow: 0 0 8px rgba(231, 211, 174, .3);
-}
-
-.controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.time {
-  color: rgba(255, 255, 255, .7);
-  font-family: Arial, sans-serif;
-  font-size: 10px;
-  font-variant-numeric: tabular-nums;
-}
-
-.play {
-  display: grid;
-  width: 44px;
-  height: 44px;
-  place-items: center;
-  border: 1px solid rgba(231, 211, 174, .6);
-  border-radius: 50%;
-  background: rgba(10, 15, 25, .45);
-  color: var(--gold);
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  backdrop-filter: blur(8px);
-  cursor: pointer;
-}
-
-.play:active {
-  transform: scale(.94);
-}
-
-.hint {
-  margin-top: 13px;
-  color: rgba(255, 255, 255, .43);
-  font-family: Arial, sans-serif;
-  font-size: 8px;
-  letter-spacing: 3px;
-  text-align: center;
-}
-
-/* Animations */
-@keyframes cinematicZoom {
-  0% {
-    transform: scale(1.06) translate(0, 0);
-  }
-  100% {
-    transform: scale(1.17) translate(-.6%, .5%);
-  }
-}
-
-@keyframes symbolGlow {
-  from { opacity: .55; }
-  to { opacity: .95; }
-}
-
-@keyframes grainDrift {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(1%, -1%); }
-}
-
-@keyframes openingFade {
-  0% { opacity: 1; }
-  100% { opacity: 0; visibility: hidden; }
-}
-
-@keyframes endingZoom {
-  from { transform: scale(1.17) translate(-.6%, .5%); }
-  to { transform: scale(1.04) translate(0, 0); }
-}
-
-@keyframes endingFade {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+.lyric.visible {
+  animation: lyricJourney var(--lyric-duration, 3s)
+    cubic-bezier(.22,.61,.36,1) both;
 }
 
 @keyframes lyricJourney {
   0% {
     opacity: 0;
-    filter: blur(14px);
-    transform: translateY(-75px) scale(.94);
+    filter: blur(13px);
+    transform: translateY(-76px) scale(.95);
     text-shadow: 0 0 0 transparent;
   }
 
-  24% {
+  23% {
     opacity: .85;
     filter: blur(3px);
-    transform: translateY(-18px) scale(.99);
+    transform: translateY(-17px) scale(.99);
   }
 
-  40% {
+  38% {
     opacity: 1;
     filter: blur(0);
     transform: translateY(0) scale(1);
+    text-shadow:
+      0 0 8px rgba(255,255,255,.55),
+      0 0 25px rgba(190,211,255,.35),
+      0 0 50px rgba(180,202,255,.15);
   }
 
-  56% {
+  57% {
     opacity: 1;
     filter: blur(0);
     transform: translateY(0) scale(1);
+    text-shadow:
+      0 0 8px rgba(255,255,255,.5),
+      0 0 25px rgba(190,211,255,.3);
   }
 
   78% {
-    opacity: .65;
+    opacity: .62;
     filter: blur(5px);
-    transform: translateY(28px) scale(.99);
+    transform: translateY(30px) scale(.99);
   }
 
   100% {
     opacity: 0;
     filter: blur(15px);
-    transform: translateY(75px) scale(.96);
+    transform: translateY(78px) scale(.96);
+    text-shadow: 0 0 0 transparent;
   }
 }
 
-@media (min-width: 600px) {
+/* Pembuka */
+.intro {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 28px;
+  text-align: center;
+  background: rgba(5,9,17,.34);
+  animation: introFade 3.5s ease forwards;
+  pointer-events: none;
+}
+
+.intro small {
+  font-size: 9px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(245,244,242,.7);
+  margin-bottom: 20px;
+}
+
+.intro h1 {
+  max-width: 600px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 9vw, 65px);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: 1px;
+  text-shadow: 0 0 35px rgba(0,0,0,.5);
+}
+
+.intro .rule {
+  width: 42px;
+  height: 1px;
+  background: var(--gold);
+  margin: 25px 0;
+  opacity: .8;
+}
+
+.intro p {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+@keyframes introFade {
+  0%, 55% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+.scene.started .intro {
+  display: none;
+}
+
+/* Kontrol audio */
+.player {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: max(22px, env(safe-area-inset-bottom));
+  padding: 0 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.track-name {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,.88);
+}
+
+.track-artist {
+  margin-top: 3px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: min(100%, 390px);
+}
+
+.play-button {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.4);
+  color: white;
+  background: rgba(255,255,255,.09);
+  backdrop-filter: blur(12px);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background .25s, transform .25s;
+}
+
+.play-button:active {
+  transform: scale(.94);
+}
+
+.timeline-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.time-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: rgba(255,255,255,.65);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 8px;
+}
+
+input[type="range"] {
+  display: block;
+  width: 100%;
+  height: 3px;
+  accent-color: #e8d6a8;
+  cursor: pointer;
+}
+
+.footer-note {
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,.38);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 1px;
+}
+
+.scene.ended .color-grade {
+  background: rgba(3,6,12,.94);
+  transition: background 3s ease;
+}
+
+@media (max-height: 560px) {
   .player {
-    height: min(92dvh, 850px);
-    border: 1px solid rgba(255, 255, 255, .08);
-    box-shadow: 0 20px 100px #000b;
+    bottom: 12px;
+    gap: 7px;
+  }
+
+  .track-name {
+    font-size: 14px;
+  }
+
+  .footer-note {
+    display: none;
+  }
+
+  .lyric {
+    font-size: clamp(25px, 5vw, 38px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg, .grain, .symbol {
-    animation: none;
-  }
-
-  .lyric.visible {
-    animation-duration: 1s;
-  }
-
-  .lyric, .caption {
-    transition-duration: .3s;
+  .background {
+    animation-duration: 180s;
   }
 }
 </style>
 </head>
 
 <body>
-<main class="player" id="player">
-  <div class="bg"></div>
-  <div class="tint"></div>
-  <div class="vignette"></div>
+<main class="scene" id="scene">
+  <div class="background"></div>
   <div class="color-grade"></div>
+  <div class="vignette"></div>
+  <div class="lyric-blur"></div>
   <canvas id="snow"></canvas>
-  <div class="grain"></div>
 
-  <header class="header">
-    <div>
-      <div class="kicker">A winter memory</div>
-      <div class="song-title">Merry Christmas, Please Don't Call</div>
-    </div>
-    <div class="chapter">NO. 025</div>
-  </header>
-
-  <section class="lyric-zone" aria-live="polite">
-    <div class="symbol">✧ ❄ ✧</div>
-    <div class="lyric gold visible" id="lyric">Some memories never leave.</div>
-    <div class="subline" id="subline"></div>
-    <div class="caption visible" id="caption">MEMORIES DON'T FADE</div>
+  <section class="intro" id="intro">
+    <small>A winter that stays</small>
+    <h1>Merry Christmas,<br>Please Don't Call</h1>
+    <div class="rule"></div>
+    <p>Some goodbyes are quieter than snow</p>
   </section>
 
-  <footer class="footer">
-    <div class="progress" id="progress" aria-label="Seek through song">
-      <div class="progress-fill" id="fill"></div>
+  <section class="lyric-stage" aria-live="off">
+    <div class="lyric gold" id="lyric"></div>
+  </section>
+
+  <section class="player">
+    <div>
+      <div class="track-name">Merry Christmas Please Don't Call</div>
+      <div class="track-artist">A song for the winter</div>
     </div>
 
     <div class="controls">
-      <span class="time" id="current">00:00</span>
-      <button class="play" id="play" aria-label="Play">▶</button>
-      <span class="time" id="total">--:--</span>
+      <button class="play-button" id="playButton"
+        aria-label="Putar lagu">▶</button>
+
+      <div class="timeline-wrap">
+        <div class="time-row">
+          <span id="currentTime">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+        <input id="seekBar" type="range" min="0"
+          max="100" value="0" step="0.1"
+          aria-label="Posisi lagu">
+      </div>
     </div>
 
-    <div class="hint">LISTEN WITH YOUR HEART</div>
-  </footer>
+    <div class="footer-note">Somewhere between memory and goodbye</div>
+  </section>
 
-  <div class="scene-fade" id="sceneFade"></div>
-
-  <audio id="audio" preload="metadata">
-    <source src="song.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="audio" src="song.mp3" preload="metadata"></audio>
 </main>
 
 <script>
-const $ = id => document.getElementById(id);
+const audio = document.getElementById('audio');
+const lyricEl = document.getElementById('lyric');
+const playButton = document.getElementById('playButton');
+const seekBar = document.getElementById('seekBar');
+const currentTimeEl = document.getElementById('currentTime');
+const durationEl = document.getElementById('duration');
+const scene = document.getElementById('scene');
 
-const player = $("player");
-const audio = $("audio");
-const lyricEl = $("lyric");
-const caption = $("caption");
-const playBtn = $("play");
-const fill = $("fill");
-const sceneFade = $("sceneFade");
-const subline = $("subline");
-
-const FADE_IN_SECONDS = 5;
-const FADE_OUT_SECONDS = 4;
-
+/*
+  Timestamp dibuat berdasarkan audio potongan.
+  Lirik pertama muncul di detik 2.
+  Angka ini perkiraan, jadi bisa disesuaikan setelah dites.
+*/
 const lyrics = [
-  { t: 0.73, text: "One ticket out of your heavy gaze", c: "white" },
-  { t: 4.58, text: "I want one ticket off of your carousel", c: "blue" },
-  { t: 8.59, text: "I want one ticket out of your heavy gaze", c: "white" },
+  { time: 2.00, text: "One ticket out of your heavy gaze", c: "gold" },
+  { time: 5.85, text: "I want one ticket off of your carousel" },
+  { time: 9.86, text: "I want one ticket out of your heavy gaze", c: "gold" },
+  { time: 14.03, text: "I want one ticket off of your carousel" },
+  { time: 19.53, text: "But you should know that I died slow", c: "gold" },
+  { time: 24.14, text: "Running through the halls of your haunted home" },
+  { time: 28.30, text: "And the toughest part is that we both know", c: "gold" },
+  { time: 32.23, text: "What happened to you" },
+  { time: 34.20, text: "Why you're out on your own", c: "gold" },
+  { time: 37.16, text: "Merry Christmas" },
+  { time: 39.12, text: "Please don't call", c: "gold" },
+  { time: 41.60, text: "Merry Christmas" },
+  { time: 43.00, text: "I'm not yours at all", c: "gold" },
+  { time: 45.62, text: "Merry Christmas" },
+  { time: 47.62, text: "Please don't call me", c: "gold" },
+  { time: 51.91, text: "Please don't call me" },
+  { time: 56.16, text: "Please don't call me", c: "gold" },
+  { time: 60.46, text: "Please don't call me" }
+];
+
+let currentIndex = -1;
+let volumeFadeId = null;
+let lastVolume = 1;
+let isSeeking = false;
+let hasStarted = false;
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return "0:00";
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return mins + ":" + String(secs).padStart(2, "0");
+}
+
+function setLyric(index) {
+  if (index === currentIndex) return;
+  currentIndex = index;
+
+  lyricEl.className = "lyric";
+
+  if (index < 0 || index >= lyrics.length) {
+    lyricEl.textContent = "";
+    return;
+  }
+
+  const item = lyrics[index];
+  const next = lyrics[index + 1];
+
+  lyricEl.textContent = item.text;
+  lyricEl.className = "lyric " + (item.c || "");
+
+  // Durasi mengikuti jarak ke lirik berikutnya agar tidak bertabrakan.
+  const gap = next
+    ? next.time - item.time
+    : 4.2;
+
+  const animationDuration = Math.max(
+    1.25,
+    Math.min(4.2, gap - 0.08)
+  );
+
+  lyricEl.style.setProperty(
+    "--lyric-duration",
+    animationDuration + "s"
+  );
+
+  // Memulai ulang animasi setiap kali lirik berubah.
+  void lyricEl.offsetWidth;
+  lyricEl.classList.add("visible");
+}
+
+function updateLyric() {
+  const t = audio.currentTime;
+  let found = -1;
+
+  for (let i = 0; i < lyrics.length; i++) {
+    if (t >= lyrics[i].time) {
+      found = i;
+    } else {
+      break;
+    }
+  }
+
+  setLyric(found);
+}
+
+function cancelVolumeFade() {
+  if (volumeFadeId !== null) {
+    cancelAnimationFrame(volumeFadeId);
+    volumeFadeId = null;
+  }
+}
+
+function fadeVolume(from, to, duration, onComplete) {
+  cancelVolumeFade();
+
+  const start = performance.now();
+  audio.volume = from;
+
+  function step(now) {
+    const progress = Math.min(1, (now - start) / duration);
+    const eased = progress * progress * (3 - 2 * progress);
+
+    audio.volume = Math.max(
+      0,
+      Math.min(1, from + (to - from) * eased)
+    );
+
+    if (progress < 1) {
+      volumeFadeId = requestAnimationFrame(step);
+    } else {
+      volumeFadeId = null;
+      if (onComplete) onComplete();
+    }
+  }
+
+  volumeFadeId = requestAnimationFrame(step);
+}
+
+async function togglePlayback() {
+  if (audio.paused) {
+    try {
+      if (audio.ended) {
+        audio.currentTime = 0;
+        currentIndex = -1;
+      }
+
+      scene.classList.remove("ended");
+      scene.classList.add("started");
+      hasStarted = true;
+
+      lastVolume = 1;
+      cancelVolumeFade();
+      audio.volume = 0;
+
+      await audio.play();
+      playButton.textContent = "Ⅱ";
+
+      fadeVolume(0, lastVolume, 5000);
+    } catch (error) {
+      alert(
+        'Lagu tidak bisa diputar. Pastikan file "song.mp3" ' +
+        'berada satu folder dengan index.html.'
+      );
+    }
+  } else {
+    cancelVolumeFade();
+    audio.pause();
+    playButton.textContent = "▶";
+  }
+}
+
+playButton.addEventListener("click", togglePlayback);
+
+audio.addEventListener("loadedmetadata", () => {
+  durationEl.textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener("timeupdate", () => {
+  currentTimeEl.textContent = formatTime(audio.currentTime);
+
+  if (!isSeeking && Number.isFinite(audio.duration) && audio.duration > 0) {
+    seekBar.value = (audio.currentTime / audio.duration) * 100;
+  }
+
+  updateLyric();
+});
+
+seekBar.addEventListener("input", () => {
+  isSeeking = true;
+  if (Number.isFinite(audio.duration)) {
+    const target = (Number(seekBar.value) / 100) * audio.duration;
+    currentTimeEl.textContent = formatTime(target);
+  }
+});
+
+seekBar.addEventListener("change", () => {
+  if (Number.isFinite(audio.duration)) {
+    audio.currentTime = (Number(seekBar.value) / 100) * audio.duration;
+  }
+  isSeeking = false;
+  updateLyric();
+});
+
+audio.addEventListener("play", () => {
+  playButton.textContent = "Ⅱ";
+});
+
+audio.addEventListener("pause", () => {
+  playButton.textContent = "▶";
+});
+
+audio.addEventListener("ended", () => {
+  cancelVolumeFade();
+  audio.volume = 1;
+  playButton.textContent = "▶";
+  scene.classList.add("ended");
+  setLyric(-1);
+});
+
+/* Efek salju */
+const canvas = document.getElementById("snow");
+const ctx = canvas.getContext("2d");
+
+let flakes = [];
+let width = 0;
+let height = 0;
+let lastFrame = 0;
+
+function resizeCanvas() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  width = window.innerWidth;
+  height = window.innerHeight;
+
+  canvas.width = Math.floor(width * ratio);
+  canvas.height = Math.floor(height * ratio);
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  const count = Math.min(
+    100,
+    Math.max(35, Math.floor(width / 5))
+  );
+
+  flakes = Array.from({ length: count }, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    r: Math.random() * 1.8 + 0.4,
+    speed: Math.random() * 0.65 + 0.25,
+    drift: (Math.random() - 0.5) * 0.45,
+    opacity: Math.random() * 0.48 + 0.15
+  }));
+}
+
+function drawSnow(now) {
+  const delta = lastFrame
+    ? Math.min(2, (now - lastFrame) / 16.67)
+    : 1;
+
+  lastFrame = now;
+  ctx.clearRect(0, 0, width, height);
+
+  for (const flake of flakes) {
+    flake.y += flake.speed * delta;
+    flake.x += flake.drift * delta;
+
+    if (flake.y > height + 5) {
+      flake.y = -5;
+      flake.x = Math.random() * width;
+    }
+
+    if (flake.x < -5) flake.x = width + 5;
+    if (flake.x > width + 5) flake.x = -5;
+
+    ctx.beginPath();
+    ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(240,246,255,${flake.opacity})`;
+    ctx.fill();
+  }
+
+  requestAnimationFrame(drawSnow);
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+requestAnimationFrame(drawSnow);
+
+/* Lirik menunggu lagu mulai diputar */
+setLyric(-1);
+</script>
+</body>
+</html>
+ext: "I want one ticket out of your heavy gaze", c: "white" },
   { t: 12.76, text: "I want one ticket off of your carousel", c: "blue" },
   { t: 18.26, text: "But you should know that I died slow", c: "gold" },
   { t: 22.87, text: "Running through the halls of your haunted home", c: "white" },

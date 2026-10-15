@@ -1,0 +1,689 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090b14">
+<title>Merry Christmas, Please Don't Call | AMV</title>
+
+<style>
+:root {
+  --gold: #f5d8a1;
+  --blue: #b9d7ff;
+  --white: #fffaf6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #05060b;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+button {
+  font: inherit;
+}
+
+.player {
+  position: relative;
+  isolation: isolate;
+  width: min(100vw, 480px);
+  height: min(100dvh, 960px);
+  height: min(100svh, 960px);
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: #101522;
+  touch-action: manipulation;
+}
+
+.bg {
+  position: absolute;
+  z-index: -6;
+  inset: -8%;
+  background: url("violet.jpg") center / cover no-repeat;
+  transform: scale(1.1);
+  will-change: transform, filter;
+  animation: idleZoom 15s ease-in-out infinite alternate;
+}
+
+.tint {
+  position: absolute;
+  inset: 0;
+  z-index: -4;
+  background:
+    linear-gradient(
+      180deg,
+      #06091466 0%,
+      transparent 25%,
+      #08091424 45%,
+      #050711db 100%
+    ),
+    linear-gradient(90deg, #07102045, transparent 70%);
+  pointer-events: none;
+}
+
+.vignette {
+  position: absolute;
+  z-index: -3;
+  inset: 0;
+  box-shadow: inset 0 0 100px #000a;
+  pointer-events: none;
+}
+
+#snow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.grain {
+  position: absolute;
+  inset: -50%;
+  z-index: 5;
+  opacity: .10;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  animation: grainMove .2s steps(2) infinite;
+}
+
+.flash {
+  position: absolute;
+  z-index: 8;
+  inset: 0;
+  opacity: 0;
+  background: white;
+  pointer-events: none;
+}
+
+.rgb {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  background: #f33a6540;
+  mix-blend-mode: screen;
+}
+
+.header {
+  position: absolute;
+  top: max(24px, env(safe-area-inset-top));
+  left: 22px;
+  right: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  z-index: 6;
+  text-shadow: 0 2px 10px #000;
+}
+
+.kicker {
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.song {
+  font-size: 12px;
+  margin-top: 7px;
+  letter-spacing: .3px;
+}
+
+.chapter {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #ffffff9c;
+}
+
+.lyric-zone {
+  position: absolute;
+  z-index: 4;
+  top: 48%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  padding: 28px 22px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.symbol {
+  font-size: 15px;
+  letter-spacing: 10px;
+  color: var(--gold);
+  margin-bottom: 23px;
+  opacity: .9;
+}
+
+.lyric {
+  display: block;
+  width: 100%;
+  font-size: clamp(29px, 8vw, 42px);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -1.4px;
+  text-wrap: balance;
+  color: var(--white);
+  text-shadow: 0 3px 15px #000, 0 0 30px #9fc8ff55;
+  will-change: transform, opacity, filter;
+}
+
+.lyric.gold {
+  color: var(--gold);
+  text-shadow: 0 2px 15px #000, 0 0 28px #f0c98677;
+}
+
+.lyric.blue {
+  color: var(--blue);
+}
+
+.lyric.pink {
+  color: #ffd6df;
+}
+
+.lyric.enter {
+  animation: velocityIn .52s cubic-bezier(.12,.8,.2,1) both;
+}
+
+.subline {
+  width: 35px;
+  height: 2px;
+  background: var(--gold);
+  margin: 22px auto 13px;
+  box-shadow: 0 0 14px var(--gold);
+}
+
+.caption {
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: #ffffff9c;
+}
+
+.footer {
+  position: absolute;
+  z-index: 9;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  left: 22px;
+  right: 22px;
+}
+
+.progress {
+  height: 3px;
+  background: #ffffff45;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--gold);
+  box-shadow: 0 0 9px var(--gold);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time {
+  color: #ffffffb0;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.play {
+  width: 47px;
+  height: 47px;
+  border: 1px solid #f5d8a199;
+  border-radius: 50%;
+  color: var(--gold);
+  background: #101522bd;
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: transform .2s;
+}
+
+.play:active {
+  transform: scale(.87);
+}
+
+.hint {
+  margin-top: 13px;
+  text-align: center;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #ffffff70;
+}
+
+.player.hit .bg {
+  animation: punch .42s cubic-bezier(.1,.8,.2,1);
+}
+
+.player.hit .lyric-zone {
+  animation: textPunch .30s ease-out;
+}
+
+.player.hit .flash,
+.player.hard .flash {
+  animation: flashOut .24s ease-out;
+}
+
+.player.hit .rgb,
+.player.hard .rgb {
+  animation: rgbOut .22s ease-out;
+}
+
+.player.hard .bg {
+  animation: hardPunch .32s ease-out;
+}
+
+.player.hard .flash {
+  animation-duration: .32s;
+}
+
+.player.hard .rgb {
+  animation-duration: .28s;
+}
+
+.player.ending .bg {
+  filter: saturate(.45) brightness(.68);
+}
+
+.player.ending .lyric-zone {
+  animation: endingPulse 1.1s ease-in-out infinite alternate;
+}
+
+.player.paused .bg {
+  animation-play-state: paused;
+}
+
+@keyframes idleZoom {
+  from {
+    transform: scale(1.06) translate(0, 0);
+  }
+  to {
+    transform: scale(1.22) translate(-1%, 1%);
+  }
+}
+
+@keyframes velocityIn {
+  0% {
+    opacity: 0;
+    filter: blur(15px);
+    transform: translateY(26px) scale(.68) skewY(3deg);
+  }
+  55% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(-4px) scale(1.08) skewY(0);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes punch {
+  0% {
+    transform: scale(1.12);
+  }
+  45% {
+    transform: scale(1.24) translate(-1%, .5%);
+  }
+  100% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes textPunch {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+  }
+  35% {
+    transform: translateY(-50%) scale(1.09);
+  }
+}
+
+@keyframes hardPunch {
+  0%, 100% {
+    transform: scale(1.12) translateX(0);
+  }
+  25% {
+    transform: scale(1.19) translateX(-1.8%);
+  }
+  50% {
+    transform: scale(1.16) translateX(1.5%);
+  }
+  75% {
+    transform: scale(1.19) translateX(-.8%);
+  }
+}
+
+@keyframes flashOut {
+  0% {
+    opacity: .58;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rgbOut {
+  0% {
+    opacity: .65;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes endingPulse {
+  from {
+    filter: brightness(1);
+  }
+  to {
+    filter: brightness(1.16);
+  }
+}
+
+@keyframes grainMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(2%, -2%);
+  }
+}
+
+@media (min-width: 600px) {
+  .player {
+    height: min(90dvh, 850px);
+    border: 1px solid #ffffff20;
+    box-shadow: 0 20px 100px #000b;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain {
+    animation: none;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="player" id="player">
+  <div class="bg"></div>
+  <div class="tint"></div>
+  <div class="vignette"></div>
+  <canvas id="snow"></canvas>
+  <div class="flash"></div>
+  <div class="rgb"></div>
+  <div class="grain"></div>
+
+  <header class="header">
+    <div>
+      <div class="kicker">A winter memory</div>
+      <div class="song">Merry Christmas, Please Don't Call</div>
+    </div>
+    <div class="chapter">NO. 025</div>
+  </header>
+
+  <section class="lyric-zone" aria-live="polite">
+    <div class="symbol">✧ ❄ ✧</div>
+    <div class="lyric gold" id="lyric">A letter never sent.</div>
+    <div class="subline"></div>
+    <div class="caption" id="caption">MEMORIES DON'T FADE</div>
+  </section>
+
+  <footer class="footer">
+    <div class="progress" id="progress" aria-label="Seek through song">
+      <div class="progress-fill" id="fill"></div>
+    </div>
+    <div class="controls">
+      <span class="time" id="current">00:00</span>
+      <button class="play" id="play" aria-label="Play">▶</button>
+      <span class="time" id="total">--:--</span>
+    </div>
+    <div class="hint">LISTEN WITH YOUR HEART</div>
+  </footer>
+
+  <audio id="audio" preload="metadata">
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const player = $("player");
+const audio = $("audio");
+const lyricEl = $("lyric");
+const caption = $("caption");
+const playBtn = $("play");
+const fill = $("fill");
+
+const lyrics = [
+  { t: 124.73, text: "One ticket out of your heavy gaze", c: "white" },
+  { t: 128.58, text: "I want one ticket off of your carousel", c: "blue" },
+  { t: 132.59, text: "I want one ticket out of your heavy gaze", c: "white" },
+  { t: 136.76, text: "I want one ticket off of your carousel", c: "blue" },
+  { t: 142.26, text: "But you should know that I died slow", c: "gold" },
+  { t: 146.87, text: "Running through the halls of your haunted home", c: "white" },
+  { t: 151.03, text: "And the toughest part is that we both know", c: "blue" },
+  { t: 154.96, text: "What happened to you", c: "pink" },
+  { t: 156.93, text: "Why you're out on your own", c: "white" },
+  { t: 159.89, text: "Merry Christmas", c: "gold" },
+  { t: 161.85, text: "Please don't call", c: "white" },
+  { t: 164.33, text: "Merry Christmas", c: "gold" },
+  { t: 165.73, text: "I'm not yours at all", c: "pink" },
+  { t: 168.35, text: "Merry Christmas", c: "gold" },
+  { t: 170.35, text: "Please don't call me", c: "white" },
+  { t: 174.64, text: "Please don't call me", c: "gold" },
+  { t: 178.89, text: "Please don't call me", c: "white" },
+  { t: 183.19, text: "Please don't call me", c: "gold" }
+];
+
+let currentIndex = -2;
+
+function clock(t) {
+  if (!Number.isFinite(t)) return "00:00";
+  return String(Math.floor(t / 60)).padStart(2, "0") + ":" +
+         String(Math.floor(t % 60)).padStart(2, "0");
+}
+
+function getIndex(t) {
+  let result = -1;
+
+  for (let i = 0; i < lyrics.length; i++) {
+    if (t >= lyrics[i].t) result = i;
+    else break;
+  }
+
+  return result;
+}
+
+function showLyric(index) {
+  if (index === currentIndex) return;
+  currentIndex = index;
+
+  lyricEl.classList.remove("enter");
+  void lyricEl.offsetWidth;
+
+  if (index < 0) {
+    lyricEl.textContent = "A letter never sent.";
+    lyricEl.className = "lyric gold enter";
+    caption.textContent = "MEMORIES DON'T FADE";
+    player.classList.remove("ending");
+    return;
+  }
+
+  const item = lyrics[index];
+  lyricEl.textContent = item.text;
+  lyricEl.className = "lyric " + item.c + " enter";
+
+  caption.textContent = index >= 14
+    ? "PLEASE DON'T CALL"
+    : index >= 9
+      ? "A CHRISTMAS WITHOUT YOU"
+      : "A WINTER MEMORY";
+
+  player.classList.toggle("ending", index >= 14);
+
+  const hardIndices = [4, 9, 13, 14, 16, 17];
+  const normalIndices = [1, 3, 5, 7, 10, 12, 15];
+
+  if (hardIndices.includes(index)) {
+    hit(true);
+  } else if (normalIndices.includes(index)) {
+    hit(false);
+  }
+}
+
+function hit(hard) {
+  player.classList.remove("hit", "hard");
+  void player.offsetWidth;
+  player.classList.add(hard ? "hard" : "hit");
+}
+
+function update() {
+  const t = audio.currentTime;
+
+  showLyric(getIndex(t));
+  $("current").textContent = clock(t);
+
+  if (Number.isFinite(audio.duration) && audio.duration > 0) {
+    fill.style.width = (t / audio.duration * 100) + "%";
+  }
+}
+
+playBtn.addEventListener("click", async () => {
+  if (audio.paused) {
+    try {
+      await audio.play();
+    } catch (error) {
+      alert("Audio belum bisa diputar. Pastikan song.mp3 ada di repository dan namanya benar.");
+    }
+  } else {
+    audio.pause();
+  }
+});
+
+audio.addEventListener("play", () => {
+  playBtn.textContent = "Ⅱ";
+  player.classList.remove("paused");
+});
+
+audio.addEventListener("pause", () => {
+  playBtn.textContent = "▶";
+  player.classList.add("paused");
+});
+
+audio.addEventListener("loadedmetadata", () => {
+  $("total").textContent = clock(audio.duration);
+});
+
+audio.addEventListener("timeupdate", update);
+audio.addEventListener("seeked", update);
+
+audio.addEventListener("ended", () => {
+  player.classList.remove("ending", "hit", "hard");
+  audio.currentTime = 0;
+  currentIndex = -2;
+  showLyric(-1);
+  fill.style.width = "0%";
+  $("current").textContent = "00:00";
+});
+
+$("progress").addEventListener("click", event => {
+  if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+
+  const rect = event.currentTarget.getBoundingClientRect();
+  const ratio = Math.max(
+    0,
+    Math.min(1, (event.clientX - rect.left) / rect.width)
+  );
+
+  audio.currentTime = ratio * audio.duration;
+});
+
+// Snow particles
+const canvas = $("snow");
+const ctx = canvas.getContext("2d");
+
+let snowflakes = [];
+let w = 0;
+let h = 0;
+
+function resize() {
+  const rect = player.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  w = rect.width;
+  h = rect.height;
+
+  canvas.width = Math.round(w * dpr);
+  canvas.height = Math.round(h * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  snowflakes = Array.from({ length: 65 }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 1.5 + .4,
+    speed: Math.random() * .8 + .25,
+    drift: (Math.random() - .5) * .5,
+    opacity: Math.random() * .55 + .15
+  }));
+}
+
+function drawSnow() {
+  ctx.clearRect(0, 0, w, h);
+
+  for (const f of snowflakes) {
+    f.y += f.speed;
+    f.x += f.drift;
+
+    if (f.y > h + 4) {
+      f.y = -4;
+      f.x = Math.random() * w;
+    }
+
+    if (f.x < -4) f.x = w + 4;
+    if (f.x > w + 4) f.x = -4;
+
+    ctx.beginPath();
+    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(235,242,255,${f.opacity})`;
+    ctx.fill();
+  }
+
+  requestAnimationFrame(drawSnow);
+}
+
+resize();
+drawSnow();
+window.addEventListener("resize", resize);
+</script>
+</body>
+</html>

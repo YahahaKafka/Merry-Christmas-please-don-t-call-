@@ -276,6 +276,7 @@ button {
   color: #ffffff70;
 }
 
+/* Velocity dan beat effects */
 .player.hit .bg {
   animation: punch .42s cubic-bezier(.1,.8,.2,1);
 }
@@ -336,7 +337,7 @@ button {
   55% {
     opacity: 1;
     filter: blur(0);
-    transform: translateY(-4px) scale(1.08) skewY(0);
+    transform: translateY(-4px) scale(1.08);
   }
   100% {
     opacity: 1;
@@ -346,75 +347,41 @@ button {
 }
 
 @keyframes punch {
-  0% {
-    transform: scale(1.12);
-  }
-  45% {
-    transform: scale(1.24) translate(-1%, .5%);
-  }
-  100% {
-    transform: scale(1.12);
-  }
+  0% { transform: scale(1.12); }
+  45% { transform: scale(1.24) translate(-1%, .5%); }
+  100% { transform: scale(1.12); }
 }
 
 @keyframes textPunch {
-  0%, 100% {
-    transform: translateY(-50%) scale(1);
-  }
-  35% {
-    transform: translateY(-50%) scale(1.09);
-  }
+  0%, 100% { transform: translateY(-50%) scale(1); }
+  35% { transform: translateY(-50%) scale(1.09); }
 }
 
 @keyframes hardPunch {
-  0%, 100% {
-    transform: scale(1.12) translateX(0);
-  }
-  25% {
-    transform: scale(1.19) translateX(-1.8%);
-  }
-  50% {
-    transform: scale(1.16) translateX(1.5%);
-  }
-  75% {
-    transform: scale(1.19) translateX(-.8%);
-  }
+  0%, 100% { transform: scale(1.12) translateX(0); }
+  25% { transform: scale(1.19) translateX(-1.8%); }
+  50% { transform: scale(1.16) translateX(1.5%); }
+  75% { transform: scale(1.19) translateX(-.8%); }
 }
 
 @keyframes flashOut {
-  0% {
-    opacity: .58;
-  }
-  100% {
-    opacity: 0;
-  }
+  0% { opacity: .58; }
+  100% { opacity: 0; }
 }
 
 @keyframes rgbOut {
-  0% {
-    opacity: .65;
-  }
-  100% {
-    opacity: 0;
-  }
+  0% { opacity: .65; }
+  100% { opacity: 0; }
 }
 
 @keyframes endingPulse {
-  from {
-    filter: brightness(1);
-  }
-  to {
-    filter: brightness(1.16);
-  }
+  from { filter: brightness(1); }
+  to { filter: brightness(1.16); }
 }
 
 @keyframes grainMove {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(2%, -2%);
-  }
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(2%, -2%); }
 }
 
 @media (min-width: 600px) {
@@ -462,11 +429,13 @@ button {
     <div class="progress" id="progress" aria-label="Seek through song">
       <div class="progress-fill" id="fill"></div>
     </div>
+
     <div class="controls">
       <span class="time" id="current">00:00</span>
       <button class="play" id="play" aria-label="Play">▶</button>
       <span class="time" id="total">--:--</span>
     </div>
+
     <div class="hint">LISTEN WITH YOUR HEART</div>
   </footer>
 
@@ -485,32 +454,261 @@ const playBtn = $("play");
 const fill = $("fill");
 
 const lyrics = [
-  { t: 124.73, text: "One ticket out of your heavy gaze", c: "white" },
-  { t: 128.58, text: "I want one ticket off of your carousel", c: "blue" },
-  { t: 132.59, text: "I want one ticket out of your heavy gaze", c: "white" },
-  { t: 136.76, text: "I want one ticket off of your carousel", c: "blue" },
-  { t: 142.26, text: "But you should know that I died slow", c: "gold" },
-  { t: 146.87, text: "Running through the halls of your haunted home", c: "white" },
-  { t: 151.03, text: "And the toughest part is that we both know", c: "blue" },
-  { t: 154.96, text: "What happened to you", c: "pink" },
-  { t: 156.93, text: "Why you're out on your own", c: "white" },
-  { t: 159.89, text: "Merry Christmas", c: "gold" },
-  { t: 161.85, text: "Please don't call", c: "white" },
-  { t: 164.33, text: "Merry Christmas", c: "gold" },
-  { t: 165.73, text: "I'm not yours at all", c: "pink" },
-  { t: 168.35, text: "Merry Christmas", c: "gold" },
-  { t: 170.35, text: "Please don't call me", c: "white" },
-  { t: 174.64, text: "Please don't call me", c: "gold" },
-  { t: 178.89, text: "Please don't call me", c: "white" },
-  { t: 183.19, text: "Please don't call me", c: "gold" }
+  { t: 0.73, text: "One ticket out of your heavy gaze", c: "white" },
+  { t: 4.58, text: "I want one ticket off of your carousel", c: "blue" },
+  { t: 8.59, text: "I want one ticket out of your heavy gaze", c: "white" },
+  { t: 12.76, text: "I want one ticket off of your carousel", c: "blue" },
+  { t: 18.26, text: "But you should know that I died slow", c: "gold" },
+  { t: 22.87, text: "Running through the halls of your haunted home", c: "white" },
+  { t: 27.03, text: "And the toughest part is that we both know", c: "blue" },
+  { t: 30.96, text: "What happened to you", c: "pink" },
+  { t: 32.93, text: "Why you're out on your own", c: "white" },
+  { t: 35.89, text: "Merry Christmas", c: "gold" },
+  { t: 37.85, text: "Please don't call", c: "white" },
+  { t: 40.33, text: "Merry Christmas", c: "gold" },
+  { t: 41.73, text: "I'm not yours at all", c: "pink" },
+  { t: 44.35, text: "Merry Christmas", c: "gold" },
+  { t: 46.35, text: "Please don't call me", c: "white" },
+  { t: 50.64, text: "Please don't call me", c: "gold" },
+  { t: 54.89, text: "Please don't call me", c: "white" },
+  { t: 59.19, text: "Please don't call me", c: "gold" }
 ];
 
 let currentIndex = -2;
+let fadeAnimationId = null;
+const FADE_IN_SECONDS = 3;
+const TARGET_VOLUME = 1;
 
 function clock(t) {
   if (!Number.isFinite(t)) return "00:00";
+
   return String(Math.floor(t / 60)).padStart(2, "0") + ":" +
          String(Math.floor(t % 60)).padStart(2, "0");
+}
+
+function getIndex(t) {
+  let result = -1;
+
+  for (let i = 0; i < lyrics.length; i++) {
+    if (t >= lyrics[i].t) result = i;
+    else break;
+  }
+
+  return result;
+}
+
+function showLyric(index) {
+  if (index === currentIndex) return;
+  currentIndex = index;
+
+  lyricEl.classList.remove("enter");
+  void lyricEl.offsetWidth;
+
+  if (index < 0) {
+    lyricEl.textContent = "A letter never sent.";
+    lyricEl.className = "lyric gold enter";
+    caption.textContent = "MEMORIES DON'T FADE";
+    player.classList.remove("ending");
+    return;
+  }
+
+  const item = lyrics[index];
+  lyricEl.textContent = item.text;
+  lyricEl.className = "lyric " + item.c + " enter";
+
+  caption.textContent = index >= 14
+    ? "PLEASE DON'T CALL"
+    : index >= 9
+      ? "A CHRISTMAS WITHOUT YOU"
+      : "A WINTER MEMORY";
+
+  player.classList.toggle("ending", index >= 14);
+
+  const hardIndices = [4, 9, 13, 14, 16, 17];
+  const normalIndices = [1, 3, 5, 7, 10, 12, 15];
+
+  if (hardIndices.includes(index)) {
+    hit(true);
+  } else if (normalIndices.includes(index)) {
+    hit(false);
+  }
+}
+
+function hit(hard) {
+  player.classList.remove("hit", "hard");
+  void player.offsetWidth;
+  player.classList.add(hard ? "hard" : "hit");
+}
+
+/* Audio fade-in */
+function cancelFadeIn() {
+  if (fadeAnimationId !== null) {
+    cancelAnimationFrame(fadeAnimationId);
+    fadeAnimationId = null;
+  }
+}
+
+function startFadeIn() {
+  cancelFadeIn();
+
+  const startTime = performance.now();
+  audio.volume = 0;
+
+  function step(now) {
+    if (audio.paused) {
+      fadeAnimationId = null;
+      return;
+    }
+
+    const elapsed = (now - startTime) / 1000;
+    const progress = Math.min(elapsed / FADE_IN_SECONDS, 1);
+
+    // Kurva ease-in supaya volume naik secara halus.
+    audio.volume = TARGET_VOLUME * progress * progress;
+
+    if (progress < 1) {
+      fadeAnimationId = requestAnimationFrame(step);
+    } else {
+      audio.volume = TARGET_VOLUME;
+      fadeAnimationId = null;
+    }
+  }
+
+  fadeAnimationId = requestAnimationFrame(step);
+}
+
+function update() {
+  const t = audio.currentTime;
+
+  showLyric(getIndex(t));
+  $("current").textContent = clock(t);
+
+  if (Number.isFinite(audio.duration) && audio.duration > 0) {
+    fill.style.width = (t / audio.duration * 100) + "%";
+  }
+}
+
+playBtn.addEventListener("click", async () => {
+  if (audio.paused) {
+    try {
+      // Audio mulai dari volume 0, lalu fade-in.
+      audio.volume = 0;
+      await audio.play();
+      startFadeIn();
+    } catch (error) {
+      cancelFadeIn();
+      audio.volume = TARGET_VOLUME;
+      alert("Audio belum bisa diputar. Pastikan song.mp3 ada di repository dan namanya benar.");
+    }
+  } else {
+    cancelFadeIn();
+    audio.pause();
+  }
+});
+
+audio.addEventListener("play", () => {
+  playBtn.textContent = "Ⅱ";
+  player.classList.remove("paused");
+});
+
+audio.addEventListener("pause", () => {
+  playBtn.textContent = "▶";
+  player.classList.add("paused");
+  cancelFadeIn();
+});
+
+audio.addEventListener("loadedmetadata", () => {
+  $("total").textContent = clock(audio.duration);
+});
+
+audio.addEventListener("timeupdate", update);
+audio.addEventListener("seeked", update);
+
+audio.addEventListener("ended", () => {
+  cancelFadeIn();
+  audio.volume = TARGET_VOLUME;
+  player.classList.remove("ending", "hit", "hard");
+
+  audio.currentTime = 0;
+  currentIndex = -2;
+  showLyric(-1);
+
+  fill.style.width = "0%";
+  $("current").textContent = "00:00";
+});
+
+$("progress").addEventListener("click", event => {
+  if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+
+  const rect = event.currentTarget.getBoundingClientRect();
+  const ratio = Math.max(
+    0,
+    Math.min(1, (event.clientX - rect.left) / rect.width)
+  );
+
+  audio.currentTime = ratio * audio.duration;
+});
+
+// Snow particles
+const canvas = $("snow");
+const ctx = canvas.getContext("2d");
+
+let snowflakes = [];
+let w = 0;
+let h = 0;
+
+function resize() {
+  const rect = player.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  w = rect.width;
+  h = rect.height;
+
+  canvas.width = Math.round(w * dpr);
+  canvas.height = Math.round(h * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  snowflakes = Array.from({ length: 65 }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 1.5 + .4,
+    speed: Math.random() * .8 + .25,
+    drift: (Math.random() - .5) * .5,
+    opacity: Math.random() * .55 + .15
+  }));
+}
+
+function drawSnow() {
+  ctx.clearRect(0, 0, w, h);
+
+  for (const f of snowflakes) {
+    f.y += f.speed;
+    f.x += f.drift;
+
+    if (f.y > h + 4) {
+      f.y = -4;
+      f.x = Math.random() * w;
+    }
+
+    if (f.x < -4) f.x = w + 4;
+    if (f.x > w + 4) f.x = -4;
+
+    ctx.beginPath();
+    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(235,242,255,${f.opacity})`;
+    ctx.fill();
+  }
+
+  requestAnimationFrame(drawSnow);
+}
+
+resize();
+drawSnow();
+window.addEventListener("resize", resize);
+</script>
+</body>
+</html>
+adStart(2, "0");
 }
 
 function getIndex(t) {

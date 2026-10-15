@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -42,7 +43,7 @@ body {
   background: #101725;
 }
 
-/* Background tetap diam, hanya zoom perlahan */
+/* BACKGROUND */
 .background {
   position: absolute;
   inset: -3%;
@@ -63,15 +64,16 @@ body {
   background:
     linear-gradient(
       180deg,
-      rgba(7,12,23,.42),
-      rgba(10,17,29,.12) 38%,
-      rgba(5,9,17,.68) 100%
+      rgba(7,12,23,.28) 0%,
+      rgba(10,17,29,.08) 40%,
+      rgba(5,9,17,.25) 65%,
+      rgba(5,9,17,.75) 100%
     ),
     linear-gradient(
       90deg,
-      rgba(12,22,42,.24),
+      rgba(12,22,42,.16),
       transparent 50%,
-      rgba(12,22,42,.24)
+      rgba(12,22,42,.16)
     );
 }
 
@@ -82,21 +84,13 @@ body {
   pointer-events: none;
   background: radial-gradient(
     ellipse at center,
-    transparent 28%,
-    rgba(0,0,0,.2) 65%,
-    rgba(0,0,0,.65) 100%
+    transparent 30%,
+    rgba(0,0,0,.16) 68%,
+    rgba(0,0,0,.55) 100%
   );
 }
 
-.grain {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  opacity: .09;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-}
-
+/* SNOW */
 #snow {
   position: absolute;
   inset: 0;
@@ -106,42 +100,66 @@ body {
   pointer-events: none;
 }
 
-/* HEADER: tetap di bagian atas */
+/* =========================
+   TITLE: GARIS MERAH
+   ========================= */
 .header {
   position: absolute;
-  top: 27px;
-  left: 24px;
-  right: 24px;
+  top: 9.5%;
+  left: 22px;
+  right: 22px;
   z-index: 3;
   text-align: center;
-}
-
-.header .eyebrow {
-  font-size: 9px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: rgba(245,244,242,.68);
-  margin-bottom: 8px;
 }
 
 .header h1 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
-  font-size: clamp(23px, 5vw, 32px);
-  line-height: 1.1;
-  letter-spacing: .7px;
-  text-shadow: 0 2px 20px rgba(0,0,0,.3);
+  font-size: clamp(25px, 6.2vw, 36px);
+  line-height: 1.12;
+  letter-spacing: .6px;
+  color: #f7f2e8;
+  text-shadow: 0 2px 18px rgba(0,0,0,.35);
 }
 
-.header .subtitle {
-  margin-top: 8px;
+/* =========================
+   SUBTITLE: GARIS BIRU
+   ========================= */
+.subtitle {
+  position: absolute;
+  top: 12.2%;
+  left: 22px;
+  right: 22px;
+  z-index: 3;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
   font-size: 9px;
-  letter-spacing: 2.5px;
+  font-weight: 300;
+  letter-spacing: 3.5px;
   text-transform: uppercase;
-  color: rgba(245,244,242,.55);
+  color: rgba(245,244,242,.78);
+  text-shadow: 0 2px 12px rgba(0,0,0,.5);
 }
 
-/* AREA LIRIK */
+/* NAMA ARTIST DI AREA ATAS TENGAH */
+.artist {
+  position: absolute;
+  top: 16.5%;
+  left: 22px;
+  right: 22px;
+  z-index: 3;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(245,244,242,.58);
+}
+
+/* =========================
+   LYRICS
+   ========================= */
 .lyric-stage {
   position: absolute;
   top: 49%;
@@ -184,7 +202,6 @@ body {
     cubic-bezier(.22,.61,.36,1) both;
 }
 
-/* Lirik masuk dari atas, bersinar di tengah, lalu turun dan menghilang */
 @keyframes lyricJourney {
   0% {
     opacity: 0;
@@ -232,7 +249,7 @@ body {
   }
 }
 
-/* Blur halus pada bagian atas dan bawah layar */
+/* BLUR TEPI ATAS DAN BAWAH */
 .edge-blur {
   position: absolute;
   inset: 0;
@@ -240,14 +257,16 @@ body {
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(7,12,22,.32) 0%,
+    rgba(7,12,22,.2) 0%,
     transparent 22%,
-    transparent 70%,
-    rgba(5,9,17,.42) 100%
+    transparent 72%,
+    rgba(5,9,17,.4) 100%
   );
 }
 
-/* FOOTER: tetap di bagian bawah */
+/* =========================
+   FOOTER: GARIS HIJAU
+   ========================= */
 .footer {
   position: absolute;
   left: 24px;
@@ -260,7 +279,20 @@ body {
   gap: 13px;
 }
 
+/* Teks footer */
+.footer-note {
+  order: 3;
+  text-align: center;
+  font-size: 8px;
+  letter-spacing: 3px;
+  line-height: 1.6;
+  color: rgba(255,255,255,.55);
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
 .track-info {
+  order: 1;
   text-align: center;
 }
 
@@ -280,6 +312,7 @@ body {
 }
 
 .controls {
+  order: 2;
   width: min(100%, 390px);
   display: flex;
   align-items: center;
@@ -326,50 +359,81 @@ input[type="range"] {
   cursor: pointer;
 }
 
-.footer-note {
-  text-align: center;
-  font-size: 8px;
-  letter-spacing: 3px;
-  line-height: 1.6;
-  color: rgba(255,255,255,.4);
-  text-transform: uppercase;
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: .06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
 }
 
-.scene.ended .color-grade {
-  background: rgba(3,6,12,.94);
-  transition: background 3s ease;
+@media (max-height: 700px) {
+  .header {
+    top: 8%;
+  }
+
+  .subtitle {
+    top: 12.8%;
+  }
+
+  .artist {
+    top: 17%;
+  }
+
+  .lyric-stage {
+    top: 49%;
+  }
+
+  .footer {
+    bottom: 12px;
+    gap: 8px;
+  }
+
+  .footer-note {
+    font-size: 7px;
+  }
 }
 
 @media (max-height: 560px) {
   .header {
-    top: 13px;
+    top: 5%;
   }
 
-  .header .eyebrow {
-    margin-bottom: 4px;
+  .header h1 {
+    font-size: 23px;
   }
 
-  .header .subtitle {
-    margin-top: 4px;
+  .subtitle {
+    top: 13%;
+  }
+
+  .artist {
+    top: 19%;
   }
 
   .lyric-stage {
-    top: 48%;
+    top: 50%;
   }
 
   .footer {
-    bottom: 10px;
-    gap: 7px;
+    bottom: 8px;
+    gap: 5px;
   }
 
+  .track-name {
+    font-size: 14px;
+  }
+
+  .track-artist,
   .footer-note {
     display: none;
   }
 
   .play-button {
-    width: 38px;
-    height: 38px;
-    flex-basis: 38px;
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
   }
 }
 </style>
@@ -384,10 +448,12 @@ input[type="range"] {
   <canvas id="snow"></canvas>
 
   <header class="header">
-    <div class="eyebrow">A winter that stays</div>
     <h1>Merry Christmas, Please Don't Call</h1>
-    <div class="subtitle">Some goodbyes are quieter than snow</div>
   </header>
+
+  <div class="subtitle">A Song for the Winter</div>
+
+  <div class="artist">BLEACHERS</div>
 
   <div class="edge-blur"></div>
 
@@ -398,7 +464,7 @@ input[type="range"] {
   <footer class="footer">
     <div class="track-info">
       <div class="track-name">Merry Christmas Please Don't Call</div>
-      <div class="track-artist">A song for the winter</div>
+      <div class="track-artist">BLEACHERS</div>
     </div>
 
     <div class="controls">
@@ -418,7 +484,7 @@ input[type="range"] {
     </div>
 
     <div class="footer-note">
-      Somewhere between memory and goodbye
+      Somewhere Between Memory and Goodbye
     </div>
   </footer>
 
@@ -436,11 +502,7 @@ const currentTimeEl = document.getElementById("currentTime");
 const durationEl = document.getElementById("duration");
 const scene = document.getElementById("scene");
 
-/*
-  Audio yang digunakan adalah file potongan.
-  Lirik pertama dimulai pada detik ke-2.
-  Timestamp berikutnya merupakan perkiraan.
-*/
+/* TIMING LIRIK: audio potongan, lirik pertama mulai detik 2 */
 const lyrics = [
   { time: 2.00, text: "One ticket out of your heavy gaze", c: "gold" },
   { time: 5.75, text: "I want one ticket off of your carousel" },
@@ -467,6 +529,242 @@ let volumeFadeId = null;
 let isSeeking = false;
 
 function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return "0:00";
+
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+
+  return mins + ":" + String(secs).padStart(2, "0");
+}
+
+function setLyric(index) {
+  if (index === currentIndex) return;
+
+  currentIndex = index;
+  lyricEl.className = "lyric";
+  lyricEl.textContent = "";
+
+  if (index < 0 || index >= lyrics.length) return;
+
+  const item = lyrics[index];
+  const next = lyrics[index + 1];
+
+  lyricEl.textContent = item.text;
+  lyricEl.className = "lyric " + (item.c || "");
+
+  const gap = next ? next.time - item.time : 3.5;
+  const animationDuration = Math.max(1.2, Math.min(4.2, gap - 0.08));
+
+  lyricEl.style.setProperty(
+    "--lyric-duration",
+    animationDuration + "s"
+  );
+
+  void lyricEl.offsetWidth;
+  lyricEl.classList.add("visible");
+}
+
+function updateLyric() {
+  const time = audio.currentTime;
+  let found = -1;
+
+  for (let i = 0; i < lyrics.length; i++) {
+    if (time >= lyrics[i].time) {
+      found = i;
+    } else {
+      break;
+    }
+  }
+
+  setLyric(found);
+}
+
+function cancelVolumeFade() {
+  if (volumeFadeId !== null) {
+    cancelAnimationFrame(volumeFadeId);
+    volumeFadeId = null;
+  }
+}
+
+function fadeVolume(from, to, duration, callback) {
+  cancelVolumeFade();
+
+  const start = performance.now();
+  audio.volume = from;
+
+  function step(now) {
+    const progress = Math.min(1, (now - start) / duration);
+    const eased = progress * progress * (3 - 2 * progress);
+
+    audio.volume = Math.max(
+      0,
+      Math.min(1, from + (to - from) * eased)
+    );
+
+    if (progress < 1) {
+      volumeFadeId = requestAnimationFrame(step);
+    } else {
+      volumeFadeId = null;
+      if (callback) callback();
+    }
+  }
+
+  volumeFadeId = requestAnimationFrame(step);
+}
+
+async function togglePlayback() {
+  if (audio.paused) {
+    try {
+      if (audio.ended) {
+        audio.currentTime = 0;
+        currentIndex = -1;
+      }
+
+      scene.classList.remove("ended");
+      cancelVolumeFade();
+      audio.volume = 0;
+
+      await audio.play();
+      playButton.textContent = "Ⅱ";
+
+      fadeVolume(0, 1, 5000);
+    } catch (error) {
+      alert(
+        'Lagu tidak bisa diputar. Pastikan file "song.mp3" ' +
+        'berada satu folder dengan index.html.'
+      );
+    }
+  } else {
+    cancelVolumeFade();
+    audio.pause();
+    playButton.textContent = "▶";
+  }
+}
+
+playButton.addEventListener("click", togglePlayback);
+
+audio.addEventListener("loadedmetadata", () => {
+  durationEl.textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener("timeupdate", () => {
+  currentTimeEl.textContent = formatTime(audio.currentTime);
+
+  if (
+    !isSeeking &&
+    Number.isFinite(audio.duration) &&
+    audio.duration > 0
+  ) {
+    seekBar.value = (audio.currentTime / audio.duration) * 100;
+  }
+
+  updateLyric();
+});
+
+seekBar.addEventListener("input", () => {
+  isSeeking = true;
+
+  if (Number.isFinite(audio.duration)) {
+    const target = Number(seekBar.value) / 100 * audio.duration;
+    currentTimeEl.textContent = formatTime(target);
+  }
+});
+
+seekBar.addEventListener("change", () => {
+  if (Number.isFinite(audio.duration)) {
+    audio.currentTime =
+      Number(seekBar.value) / 100 * audio.duration;
+  }
+
+  isSeeking = false;
+  updateLyric();
+});
+
+audio.addEventListener("play", () => {
+  playButton.textContent = "Ⅱ";
+});
+
+audio.addEventListener("pause", () => {
+  playButton.textContent = "▶";
+});
+
+audio.addEventListener("ended", () => {
+  cancelVolumeFade();
+  audio.volume = 1;
+  playButton.textContent = "▶";
+  setLyric(-1);
+});
+
+/* SNOW ANIMATION */
+const canvas = document.getElementById("snow");
+const ctx = canvas.getContext("2d");
+
+let flakes = [];
+let width = 0;
+let height = 0;
+let lastFrame = 0;
+
+function resizeCanvas() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+  width = window.innerWidth;
+  height = window.innerHeight;
+
+  canvas.width = Math.floor(width * ratio);
+  canvas.height = Math.floor(height * ratio);
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  flakes = Array.from({ length: 48 }, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    r: Math.random() * 1.7 + .4,
+    speed: Math.random() * .65 + .25,
+    drift: (Math.random() - .5) * .4,
+    opacity: Math.random() * .45 + .15
+  }));
+}
+
+function drawSnow(now) {
+  const delta = lastFrame
+    ? Math.min(2, (now - lastFrame) / 16.67)
+    : 1;
+
+  lastFrame = now;
+  ctx.clearRect(0, 0, width, height);
+
+  for (const flake of flakes) {
+    flake.y += flake.speed * delta;
+    flake.x += flake.drift * delta;
+
+    if (flake.y > height + 5) {
+      flake.y = -5;
+      flake.x = Math.random() * width;
+    }
+
+    if (flake.x < -5) flake.x = width + 5;
+    if (flake.x > width + 5) flake.x = -5;
+
+    ctx.beginPath();
+    ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(240,246,255,${flake.opacity})`;
+    ctx.fill();
+  }
+
+  requestAnimationFrame(drawSnow);
+}
+
+window.addEventListener("resize", resizeCanvas);
+
+resizeCanvas();
+requestAnimationFrame(drawSnow);
+setLyric(-1);
+</script>
+</body>
+</html>
+nds) {
   if (!Number.isFinite(seconds)) return "0:00";
 
   const mins = Math.floor(seconds / 60);

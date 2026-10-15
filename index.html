@@ -43,7 +43,7 @@ body {
   background: #101725;
 }
 
-/* BACKGROUND */
+/* BACKGROUND: tetap stabil, tanpa shake */
 .background {
   position: absolute;
   inset: -3%;
@@ -64,16 +64,16 @@ body {
   background:
     linear-gradient(
       180deg,
-      rgba(7,12,23,.28) 0%,
-      rgba(10,17,29,.08) 40%,
-      rgba(5,9,17,.25) 65%,
-      rgba(5,9,17,.75) 100%
+      rgba(7,12,23,.23) 0%,
+      rgba(10,17,29,.06) 42%,
+      rgba(5,9,17,.22) 68%,
+      rgba(5,9,17,.76) 100%
     ),
     linear-gradient(
       90deg,
-      rgba(12,22,42,.16),
+      rgba(12,22,42,.13),
       transparent 50%,
-      rgba(12,22,42,.16)
+      rgba(12,22,42,.13)
     );
 }
 
@@ -85,12 +85,12 @@ body {
   background: radial-gradient(
     ellipse at center,
     transparent 30%,
-    rgba(0,0,0,.16) 68%,
-    rgba(0,0,0,.55) 100%
+    rgba(0,0,0,.14) 68%,
+    rgba(0,0,0,.48) 100%
   );
 }
 
-/* SNOW */
+/* SALJU */
 #snow {
   position: absolute;
   inset: 0;
@@ -100,66 +100,59 @@ body {
   pointer-events: none;
 }
 
-/* =========================
-   TITLE: GARIS MERAH
-   ========================= */
+/* JUDUL KECIL DI POJOK KIRI ATAS */
 .header {
   position: absolute;
-  top: 9.5%;
-  left: 22px;
-  right: 22px;
-  z-index: 3;
-  text-align: center;
+  top: 5.5%;
+  left: 6%;
+  width: 48%;
+  z-index: 4;
+  text-align: left;
 }
 
 .header h1 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
-  font-size: clamp(25px, 6.2vw, 36px);
+  font-size: clamp(17px, 4.5vw, 25px);
   line-height: 1.12;
-  letter-spacing: .6px;
-  color: #f7f2e8;
-  text-shadow: 0 2px 18px rgba(0,0,0,.35);
+  letter-spacing: .2px;
+  color: rgba(255,255,255,.94);
+  text-shadow: 0 2px 14px rgba(0,0,0,.45);
 }
 
-/* =========================
-   SUBTITLE: GARIS BIRU
-   ========================= */
+/* SUBTITLE DI KANAN ATAS */
 .subtitle {
   position: absolute;
-  top: 12.2%;
-  left: 22px;
-  right: 22px;
-  z-index: 3;
-  text-align: center;
+  top: 5.8%;
+  right: 6%;
+  width: 35%;
+  z-index: 4;
+  text-align: right;
   font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
+  font-size: clamp(8px, 2.3vw, 10px);
   font-weight: 300;
-  letter-spacing: 3.5px;
+  line-height: 1.7;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: rgba(245,244,242,.78);
-  text-shadow: 0 2px 12px rgba(0,0,0,.5);
+  color: rgba(245,244,242,.76);
+  text-shadow: 0 2px 12px rgba(0,0,0,.45);
 }
 
-/* NAMA ARTIST DI AREA ATAS TENGAH */
+/* ARTIST */
 .artist {
   position: absolute;
-  top: 16.5%;
-  left: 22px;
-  right: 22px;
-  z-index: 3;
-  text-align: center;
+  top: 11.8%;
+  left: 6%;
+  z-index: 4;
   font-family: 'Montserrat', sans-serif;
   font-size: 8px;
   font-weight: 400;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   text-transform: uppercase;
   color: rgba(245,244,242,.58);
 }
 
-/* =========================
-   LYRICS
-   ========================= */
+/* AREA LIRIK */
 .lyric-stage {
   position: absolute;
   top: 49%;
@@ -186,9 +179,11 @@ body {
   line-height: 1.24;
   letter-spacing: .2px;
   color: #f7f4ee;
+
   opacity: 0;
-  filter: blur(13px);
-  transform: translateY(-76px) scale(.96);
+  filter: blur(8px);
+  transform: translateY(-45px) scale(.98);
+
   text-shadow: 0 0 18px rgba(220,230,255,.15);
   will-change: transform, opacity, filter;
 }
@@ -202,54 +197,58 @@ body {
     cubic-bezier(.22,.61,.36,1) both;
 }
 
+/*
+  Masuk: blur sangat singkat.
+  Tengah: tajam dan bertahan lebih lama.
+  Keluar: turun sedikit dan memudar, tanpa blur berlebihan.
+*/
 @keyframes lyricJourney {
   0% {
     opacity: 0;
-    filter: blur(14px);
-    transform: translateY(-82px) scale(.95);
-    text-shadow: 0 0 0 transparent;
+    filter: blur(8px);
+    transform: translateY(-45px) scale(.98);
   }
 
-  23% {
-    opacity: .82;
-    filter: blur(3px);
-    transform: translateY(-20px) scale(.99);
+  10% {
+    opacity: .8;
+    filter: blur(0);
+    transform: translateY(-15px) scale(1);
   }
 
-  40% {
+  25% {
     opacity: 1;
     filter: blur(0);
     transform: translateY(0) scale(1);
     text-shadow:
-      0 0 8px rgba(255,255,255,.6),
-      0 0 24px rgba(190,211,255,.4),
-      0 0 45px rgba(180,202,255,.2);
+      0 0 8px rgba(255,255,255,.55),
+      0 0 24px rgba(190,211,255,.36),
+      0 0 42px rgba(180,202,255,.17);
   }
 
-  57% {
+  68% {
     opacity: 1;
     filter: blur(0);
     transform: translateY(0) scale(1);
     text-shadow:
-      0 0 8px rgba(255,255,255,.5),
-      0 0 24px rgba(190,211,255,.3);
+      0 0 8px rgba(255,255,255,.45),
+      0 0 22px rgba(190,211,255,.28);
   }
 
-  78% {
-    opacity: .6;
-    filter: blur(5px);
-    transform: translateY(30px) scale(.99);
+  85% {
+    opacity: .65;
+    filter: blur(0);
+    transform: translateY(12px) scale(.995);
   }
 
   100% {
     opacity: 0;
-    filter: blur(15px);
-    transform: translateY(78px) scale(.96);
+    filter: blur(1px);
+    transform: translateY(24px) scale(.99);
     text-shadow: 0 0 0 transparent;
   }
 }
 
-/* BLUR TEPI ATAS DAN BAWAH */
+/* Blur tipis di tepi layar, bukan pada background */
 .edge-blur {
   position: absolute;
   inset: 0;
@@ -257,21 +256,19 @@ body {
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(7,12,22,.2) 0%,
-    transparent 22%,
-    transparent 72%,
-    rgba(5,9,17,.4) 100%
+    rgba(7,12,22,.14) 0%,
+    transparent 19%,
+    transparent 77%,
+    rgba(5,9,17,.32) 100%
   );
 }
 
-/* =========================
-   FOOTER: GARIS HIJAU
-   ========================= */
+/* FOOTER DAN KONTROL AUDIO */
 .footer {
   position: absolute;
   left: 24px;
   right: 24px;
-  bottom: 25px;
+  bottom: max(22px, env(safe-area-inset-bottom));
   z-index: 5;
   display: flex;
   flex-direction: column;
@@ -279,20 +276,7 @@ body {
   gap: 13px;
 }
 
-/* Teks footer */
-.footer-note {
-  order: 3;
-  text-align: center;
-  font-size: 8px;
-  letter-spacing: 3px;
-  line-height: 1.6;
-  color: rgba(255,255,255,.55);
-  text-transform: uppercase;
-  margin-top: 1px;
-}
-
 .track-info {
-  order: 1;
   text-align: center;
 }
 
@@ -312,7 +296,6 @@ body {
 }
 
 .controls {
-  order: 2;
   width: min(100%, 390px);
   display: flex;
   align-items: center;
@@ -359,30 +342,36 @@ input[type="range"] {
   cursor: pointer;
 }
 
+.footer-note {
+  text-align: center;
+  font-size: 8px;
+  letter-spacing: 3px;
+  line-height: 1.6;
+  color: rgba(255,255,255,.48);
+  text-transform: uppercase;
+}
+
+/* Tekstur film */
 .grain {
   position: absolute;
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  opacity: .06;
+  opacity: .055;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
 }
 
 @media (max-height: 700px) {
   .header {
-    top: 8%;
+    top: 5%;
   }
 
   .subtitle {
-    top: 12.8%;
+    top: 5.2%;
   }
 
   .artist {
-    top: 17%;
-  }
-
-  .lyric-stage {
-    top: 49%;
+    top: 12%;
   }
 
   .footer {
@@ -396,24 +385,21 @@ input[type="range"] {
 }
 
 @media (max-height: 560px) {
-  .header {
-    top: 5%;
-  }
-
   .header h1 {
-    font-size: 23px;
+    font-size: 17px;
   }
 
   .subtitle {
-    top: 13%;
+    font-size: 7px;
+    letter-spacing: 1.5px;
   }
 
   .artist {
-    top: 19%;
+    font-size: 7px;
   }
 
   .lyric-stage {
-    top: 50%;
+    top: 49%;
   }
 
   .footer {
@@ -421,13 +407,13 @@ input[type="range"] {
     gap: 5px;
   }
 
-  .track-name {
-    font-size: 14px;
-  }
-
   .track-artist,
   .footer-note {
     display: none;
+  }
+
+  .track-name {
+    font-size: 14px;
   }
 
   .play-button {
@@ -440,7 +426,7 @@ input[type="range"] {
 </head>
 
 <body>
-<main class="scene" id="scene">
+<main class="scene">
   <div class="background"></div>
   <div class="color-grade"></div>
   <div class="vignette"></div>
@@ -448,10 +434,12 @@ input[type="range"] {
   <canvas id="snow"></canvas>
 
   <header class="header">
-    <h1>Merry Christmas, Please Don't Call</h1>
+    <h1>Merry Christmas<br>Please Don't Call</h1>
   </header>
 
-  <div class="subtitle">A Song for the Winter</div>
+  <div class="subtitle">
+    A Song<br>For the Winter
+  </div>
 
   <div class="artist">BLEACHERS</div>
 
@@ -500,9 +488,7 @@ const playButton = document.getElementById("playButton");
 const seekBar = document.getElementById("seekBar");
 const currentTimeEl = document.getElementById("currentTime");
 const durationEl = document.getElementById("duration");
-const scene = document.getElementById("scene");
 
-/* TIMING LIRIK: audio potongan, lirik pertama mulai detik 2 */
 const lyrics = [
   { time: 2.00, text: "One ticket out of your heavy gaze", c: "gold" },
   { time: 5.75, text: "I want one ticket off of your carousel" },
@@ -511,6 +497,263 @@ const lyrics = [
   { time: 19.05, text: "But you should know that I died slow", c: "gold" },
   { time: 23.55, text: "Running through the halls of your haunted home" },
   { time: 27.60, text: "And the toughest part is that we both know", c: "gold" },
+  { time: 31.40, text: "What happened to you" },
+  { time: 33.30, text: "Why you're out on your own", c: "gold" },
+  { time: 36.15, text: "Merry Christmas" },
+  { time: 38.05, text: "Please don't call", c: "gold" },
+  { time: 40.40, text: "Merry Christmas" },
+  { time: 41.75, text: "I'm not yours at all", c: "gold" },
+  { time: 44.25, text: "Merry Christmas" },
+  { time: 46.15, text: "Please don't call me", c: "gold" },
+  { time: 50.25, text: "Please don't call me" },
+  { time: 54.35, text: "Please don't call me", c: "gold" },
+  { time: 58.40, text: "Please don't call me" }
+];
+
+let currentIndex = -1;
+let volumeFadeId = null;
+let isSeeking = false;
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return "0:00";
+
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+
+  return mins + ":" + String(secs).padStart(2, "0");
+}
+
+function setLyric(index) {
+  if (index === currentIndex) return;
+
+  currentIndex = index;
+  lyricEl.className = "lyric";
+  lyricEl.textContent = "";
+
+  if (index < 0 || index >= lyrics.length) return;
+
+  const item = lyrics[index];
+  const next = lyrics[index + 1];
+
+  lyricEl.textContent = item.text;
+  lyricEl.className = "lyric " + (item.c || "");
+
+  // Animasi berakhir sebelum lirik berikutnya muncul.
+  const gap = next ? next.time - item.time : 3.5;
+  const animationDuration = Math.max(
+    1.2,
+    Math.min(4.2, gap - 0.08)
+  );
+
+  lyricEl.style.setProperty(
+    "--lyric-duration",
+    animationDuration + "s"
+  );
+
+  void lyricEl.offsetWidth;
+  lyricEl.classList.add("visible");
+}
+
+function updateLyric() {
+  const time = audio.currentTime;
+  let found = -1;
+
+  for (let i = 0; i < lyrics.length; i++) {
+    if (time >= lyrics[i].time) {
+      found = i;
+    } else {
+      break;
+    }
+  }
+
+  setLyric(found);
+}
+
+function cancelVolumeFade() {
+  if (volumeFadeId !== null) {
+    cancelAnimationFrame(volumeFadeId);
+    volumeFadeId = null;
+  }
+}
+
+function fadeVolume(from, to, duration) {
+  cancelVolumeFade();
+
+  const start = performance.now();
+  audio.volume = from;
+
+  function step(now) {
+    const progress = Math.min(1, (now - start) / duration);
+    const eased = progress * progress * (3 - 2 * progress);
+
+    audio.volume = Math.max(
+      0,
+      Math.min(1, from + (to - from) * eased)
+    );
+
+    if (progress < 1) {
+      volumeFadeId = requestAnimationFrame(step);
+    } else {
+      volumeFadeId = null;
+    }
+  }
+
+  volumeFadeId = requestAnimationFrame(step);
+}
+
+async function togglePlayback() {
+  if (audio.paused) {
+    try {
+      if (audio.ended) {
+        audio.currentTime = 0;
+        currentIndex = -1;
+      }
+
+      cancelVolumeFade();
+      audio.volume = 0;
+
+      await audio.play();
+      playButton.textContent = "Ⅱ";
+
+      // Fade-in suara selama 5 detik.
+      fadeVolume(0, 1, 5000);
+    } catch (error) {
+      alert(
+        'Lagu tidak bisa diputar. Pastikan file "song.mp3" ' +
+        'berada satu folder dengan index.html.'
+      );
+    }
+  } else {
+    cancelVolumeFade();
+    audio.pause();
+    playButton.textContent = "▶";
+  }
+}
+
+playButton.addEventListener("click", togglePlayback);
+
+audio.addEventListener("loadedmetadata", () => {
+  durationEl.textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener("timeupdate", () => {
+  currentTimeEl.textContent = formatTime(audio.currentTime);
+
+  if (
+    !isSeeking &&
+    Number.isFinite(audio.duration) &&
+    audio.duration > 0
+  ) {
+    seekBar.value = (audio.currentTime / audio.duration) * 100;
+  }
+
+  updateLyric();
+});
+
+seekBar.addEventListener("input", () => {
+  isSeeking = true;
+
+  if (Number.isFinite(audio.duration)) {
+    const target = Number(seekBar.value) / 100 * audio.duration;
+    currentTimeEl.textContent = formatTime(target);
+  }
+});
+
+seekBar.addEventListener("change", () => {
+  if (Number.isFinite(audio.duration)) {
+    audio.currentTime =
+      Number(seekBar.value) / 100 * audio.duration;
+  }
+
+  isSeeking = false;
+  updateLyric();
+});
+
+audio.addEventListener("play", () => {
+  playButton.textContent = "Ⅱ";
+});
+
+audio.addEventListener("pause", () => {
+  playButton.textContent = "▶";
+});
+
+audio.addEventListener("ended", () => {
+  cancelVolumeFade();
+  audio.volume = 1;
+  playButton.textContent = "▶";
+  setLyric(-1);
+});
+
+/* ANIMASI SALJU */
+const canvas = document.getElementById("snow");
+const ctx = canvas.getContext("2d");
+
+let flakes = [];
+let width = 0;
+let height = 0;
+let lastFrame = 0;
+
+function resizeCanvas() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+  width = window.innerWidth;
+  height = window.innerHeight;
+
+  canvas.width = Math.floor(width * ratio);
+  canvas.height = Math.floor(height * ratio);
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  flakes = Array.from({ length: 48 }, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    r: Math.random() * 1.7 + .4,
+    speed: Math.random() * .65 + .25,
+    drift: (Math.random() - .5) * .4,
+    opacity: Math.random() * .45 + .15
+  }));
+}
+
+function drawSnow(now) {
+  const delta = lastFrame
+    ? Math.min(2, (now - lastFrame) / 16.67)
+    : 1;
+
+  lastFrame = now;
+  ctx.clearRect(0, 0, width, height);
+
+  for (const flake of flakes) {
+    flake.y += flake.speed * delta;
+    flake.x += flake.drift * delta;
+
+    if (flake.y > height + 5) {
+      flake.y = -5;
+      flake.x = Math.random() * width;
+    }
+
+    if (flake.x < -5) flake.x = width + 5;
+    if (flake.x > width + 5) flake.x = -5;
+
+    ctx.beginPath();
+    ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(240,246,255,${flake.opacity})`;
+    ctx.fill();
+  }
+
+  requestAnimationFrame(drawSnow);
+}
+
+window.addEventListener("resize", resizeCanvas);
+
+resizeCanvas();
+requestAnimationFrame(drawSnow);
+setLyric(-1);
+</script>
+</body>
+</html>
+ know", c: "gold" },
   { time: 31.40, text: "What happened to you" },
   { time: 33.30, text: "Why you're out on your own", c: "gold" },
   { time: 36.15, text: "Merry Christmas" },
